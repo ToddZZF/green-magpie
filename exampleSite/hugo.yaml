@@ -1,6 +1,7 @@
 # Configuration
 baseURL: "https://example.com/"
-title: "Hextra"
+title: "Green Magpie"
+theme: green-magpie
 
 enableRobotsTXT: true
 enableGitInfo: true
@@ -34,14 +35,14 @@ languages:
     weight: 3
     title: هگزترا
 
-module:
-  hugoVersion:
-    extended: true
-    min: "0.112.0"
+# module:
+#   hugoVersion:
+#     extended: true
+#     min: "0.112.0"
 
-  workspace: hugo.work
-  imports:
-    - path: github.com/imfing/hextra
+#   workspace: hugo.work
+#   imports:
+#     - path: github.com/imfing/hextra
 
 markup:
   goldmark:
