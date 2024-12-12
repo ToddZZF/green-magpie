@@ -1,0 +1,17 @@
+/* https://tobiasahlin.com/blog/css-trick-animating-link-underlines/ */
+
+a.animated {
+  @apply hx-relative hx-no-underline;
+
+  &::before {
+    @apply hx-absolute hx-bottom-0 hx-left-0 hx-z-50 hx-block hx-h-[3px] hx-w-full hx-bg-primary-600 dark:hx-bg-primary-300;
+    content: "";
+    transform: scaleX(0);
+    transform-origin: top left;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover::before {
+    transform: scaleX(1);
+  }
+}

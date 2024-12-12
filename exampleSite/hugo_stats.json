@@ -73,6 +73,7 @@
       "active:hx-opacity-50",
       "active:hx-shadow-gray-200",
       "active:hx-shadow-sm",
+      "animated",
       "before:hx-absolute",
       "before:hx-bg-glass-gradient",
       "before:hx-bg-gray-200",
