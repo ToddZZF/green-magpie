@@ -29,15 +29,15 @@ body {
 }
 
 :root {
-  --primary-hue: 212deg;
+  --primary-hue: 40deg;
   --primary-saturation: 100%;
   --primary-lightness: 50%;
-  --navbar-height: 4rem;
+  --navbar-height: 3.5rem;
   --menu-height: 3.75rem;
 }
 
 .dark {
-  --primary-hue: 204deg;
+  --primary-hue: 35deg;
   --primary-saturation: 100%;
   --primary-lightness: 50%;
 }
