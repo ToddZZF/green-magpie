@@ -174,3 +174,6 @@ params:
       # emitMetadata: 0
       # inputPosition: top
       # lang: en
+
+  math:
+    renderer: mathjax # default: katex | option: mathjax/katex

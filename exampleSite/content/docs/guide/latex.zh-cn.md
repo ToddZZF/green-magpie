@@ -4,9 +4,21 @@ weight: 4
 math: true
 ---
 
-$\KaTeX$ 用于呈现 LaTeX 数学表达式。可在 `frontmatter` 将 `math` 设置为 `true` 来启用。
-
 <!--more-->
+
+## 选择数学渲染库
+
+Green-Magpie 引入了新的数学渲染库 `Mathjax`，可以在网站设置中选择。默认是 `KaTeX`.
+
+```yaml {filename="hugo.yaml"}
+params:
+  math:
+    renderer: mathjax # 默认: katex | 可选: mathjax/katex
+```
+
+## 开启显示数学公式
+
+在 `front matter` 将 `math` 设置为 `true` 来启用。
 
 ```yaml {filename="Markdown"}
 ---

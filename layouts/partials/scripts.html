@@ -14,10 +14,15 @@
 <script defer src="{{ $scripts.RelPermalink }}" integrity="{{ $scripts.Data.Integrity }}"></script>
 
 {{/* Search */}}
-{{ partialCached "scripts/search.html" . }}
+{{- partialCached "scripts/search.html" . -}}
 
 {{/* Mermaid */}}
-{{ partial "scripts/mermaid.html" . }}
+{{- partial "scripts/mermaid.html" . -}}
 
-{{/* KaTex */}}
-{{ partial "scripts/katex.html" . }}
+{{/* Math */}}
+{{- $math_renderer := default "katex" .Site.Params.math.renderer -}}
+{{- if eq $math_renderer "mathjax" -}}
+  {{- partial "scripts/katex.html" . -}}
+{{- else if eq $math_renderer "katex" -}}
+  {{- partial "scripts/mathjax.html" . -}}
+{{- end -}}
