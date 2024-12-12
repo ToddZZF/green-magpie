@@ -16,8 +16,8 @@
 {{ $class := cond (eq $type "info") $infoClass (cond (eq $type "warning") $warningClass (cond (eq $type "error") $errorClass $defaultClass)) }}
 
 
-<div class="hx-overflow-x-auto hx-mt-6 hx-flex hx-rounded-lg hx-border hx-py-2 ltr:hx-pr-4 rtl:hx-pl-4 contrast-more:hx-border-current contrast-more:dark:hx-border-current {{ $class }}">
-  <div class="ltr:hx-pl-3 ltr:hx-pr-2 rtl:hx-pr-3 rtl:hx-pl-2">
+<div class="{{ $class }} hx-mt-6 hx-flex hx-overflow-x-auto hx-rounded-lg hx-border hx-py-2 contrast-more:hx-border-current contrast-more:dark:hx-border-current ltr:hx-pr-4 rtl:hx-pl-4">
+  <div class="ltr:hx-pl-3 ltr:hx-pr-2 rtl:hx-pl-2 rtl:hx-pr-3">
     {{- with $emoji -}}
       <div class="hx-select-none hx-text-xl" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">
         {{ . }}

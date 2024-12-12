@@ -11,6 +11,6 @@
 {{- $borderClass := cond (eq $border true) "hx-border" "" -}}
 {{- $badgeClass := cond (eq $type "info") $infoClass (cond (eq $type "warning") $warningClass (cond (eq $type "error") $errorClass $defaultClass)) -}}
 <div class="hextra-badge {{ $class }}">
-  <div class="hx-inline-flex hx-items-center hx-rounded-full hx-px-2.5 hx-leading-6 hx-text-[.65rem] {{ $borderClass }} {{ $badgeClass }}">{{- $content -}}</div>
+  <div class="{{ $borderClass }} {{ $badgeClass }} hx-inline-flex hx-items-center hx-rounded-full hx-px-2.5 hx-text-[.65rem] hx-leading-6">{{- $content -}}</div>
 </div>
 {{- /* Strip trailing newline. */ -}}

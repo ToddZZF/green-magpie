@@ -11,7 +11,7 @@
     {{- if .IsHome -}}
       {{ .Site.Title -}}
     {{ else -}}
-      {{ with .Title }}{{ . }} – {{ end -}}
+      {{ with .Title }}{{ . }} –{{ end -}}
       {{ .Site.Title -}}
     {{ end -}}
   </title>
@@ -30,11 +30,11 @@
   {{- partialCached "head-css.html" . -}}
 
 
-<!-- Google Analytics -->
-{{- if and (eq hugo.Environment "production") .Site.Config.Services.GoogleAnalytics.ID }}
-  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-  {{ partial "google-analytics.html" . }}
-{{- end }}
+  <!-- Google Analytics -->
+  {{- if and (eq hugo.Environment "production") .Site.Config.Services.GoogleAnalytics.ID }}
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    {{ partial "google-analytics.html" . }}
+  {{- end }}
 
   <script>
     /* Initialize light/dark mode */
@@ -57,7 +57,5 @@
         window.matchMedia("(prefers-color-scheme: dark)").matches ? setDarkTheme() : setLightTheme();
       }
     }
-  </script>
-
-  {{ partial "custom/head-end.html" . }}
+  </script> {{ partial "custom/head-end.html" . }}
 </head>

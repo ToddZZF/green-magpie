@@ -34,9 +34,10 @@
     {{- if eq (index $cell "cell_type") "code" -}}
       {{- $source := index $cell "source" -}}
       {{- $sourceContent := (cond (reflect.IsSlice $source) (delimit $source "") $source) -}}
-{{- with ($sourceContent | strings.Chomp) -}}
-{{ (printf "\n\n```%s\n%s\n```\n" $language .) | safeHTML -}}
-{{- end -}}
+      {{- with ($sourceContent | strings.Chomp) -}}
+        {{ (printf "\n\n```%s\n%s\n```\n" $language .) | safeHTML -}}
+      {{- end -}}
+
 
       <div class="hextra-jupyter-code-cell hextra-scrollbar">
         {{- $outputs := index $cell "outputs" -}}
@@ -73,9 +74,9 @@
         {{- end -}}
       </div>
     {{- else if eq (index $cell "cell_type") "markdown" -}}
-        {{- $source := index $cell "source" }}
-        {{- $sourceContent := (cond (reflect.IsSlice $source) (delimit $source "") $source) }}
-{{ (printf "\n%s\n" $sourceContent) | safeHTML }}
+      {{- $source := index $cell "source" }}
+      {{- $sourceContent := (cond (reflect.IsSlice $source) (delimit $source "") $source) }}
+      {{ (printf "\n%s\n" $sourceContent) | safeHTML }}
     {{- end -}}
   {{- end -}}
 {{- end -}}

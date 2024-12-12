@@ -7,7 +7,7 @@
   {{- if $link -}}
     <a href="{{ $link }}" title="{{ $content | plainify }}" target="_blank">
       {{- partial "shortcodes/badge.html" (dict
-        "content" $content 
+        "content" $content
         "type" $type
         "class" $class
         "border" true
@@ -16,7 +16,7 @@
     </a>
   {{- else -}}
     {{- partial "shortcodes/badge.html" (dict
-      "content" $content 
+      "content" $content
       "type" $type
       "class" $class
       "border" true
@@ -26,7 +26,7 @@
 {{- else -}}
   {{- $content := .Get 0 -}}
   {{- partial "shortcodes/badge.html" (dict
-    "content" $content 
+    "content" $content
     "border" true
     )
   -}}

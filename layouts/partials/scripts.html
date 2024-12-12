@@ -13,7 +13,6 @@
 {{- end -}}
 <script defer src="{{ $scripts.RelPermalink }}" integrity="{{ $scripts.Data.Integrity }}"></script>
 
-
 {{/* Search */}}
 {{- if (site.Params.search.enable | default true) -}}
   {{- $searchType := site.Params.search.type | default "flexsearch" -}}
@@ -39,7 +38,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       // Store original mermaid code for each diagram
-      document.querySelectorAll(".mermaid").forEach(el => {
+      document.querySelectorAll(".mermaid").forEach((el) => {
         el.dataset.original = el.innerHTML;
       });
 
@@ -51,7 +50,7 @@
         clearTimeout(timeout);
         timeout = setTimeout(() => {
           const theme = document.documentElement.classList.contains("dark") ? "dark" : "default";
-          document.querySelectorAll(".mermaid").forEach(el => {
+          document.querySelectorAll(".mermaid").forEach((el) => {
             // Reset to original content, preserving HTML
             el.innerHTML = el.dataset.original;
             el.removeAttribute("data-processed");
@@ -61,7 +60,7 @@
         }, 150);
       }).observe(document.documentElement, {
         attributes: true,
-        attributeFilter: ["class"]
+        attributeFilter: ["class"],
       });
     });
   </script>
@@ -91,10 +90,10 @@
           { left: "$", right: "$", display: false },
           { left: "\\(", right: "\\)", display: false },
           { left: "\\begin{equation}", right: "\\end{equation}", display: true },
-          {left: "\\begin{align}", right: "\\end{align}", display: true},
-          {left: "\\begin{alignat}", right: "\\end{alignat}", display: true},
-          {left: "\\begin{gather}", right: "\\end{gather}", display: true},
-          {left: "\\begin{CD}", right: "\\end{CD}", display: true},
+          { left: "\\begin{align}", right: "\\end{align}", display: true },
+          { left: "\\begin{alignat}", right: "\\end{alignat}", display: true },
+          { left: "\\begin{gather}", right: "\\end{gather}", display: true },
+          { left: "\\begin{CD}", right: "\\end{CD}", display: true },
           { left: "\\[", right: "\\]", display: true },
         ],
         throwOnError: false,
