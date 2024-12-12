@@ -1,7 +1,5 @@
-@supports (
-  (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))
-) {
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .hextra-code-copy-btn {
-    @apply hx-backdrop-blur-md hx-bg-opacity-[.85] dark:hx-bg-opacity-80;
+    @apply hx-bg-opacity-[.85] hx-backdrop-blur-md dark:hx-bg-opacity-80;
   }
 }

@@ -4,11 +4,9 @@ nav {
   }
 }
 
-@supports (
-  (-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))
-) {
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
   .nav-container-blur {
-    @apply hx-backdrop-blur-md hx-bg-white/[.85] dark:!hx-bg-dark/80;
+    @apply hx-bg-white/[.85] hx-backdrop-blur-md dark:!hx-bg-dark/80;
   }
 }
 

@@ -4,13 +4,13 @@
   @apply hx-mt-6;
 
   .hextra-jupyter-code-cell-outputs-container {
-    @apply hx-text-xs hx-overflow-hidden;
+    @apply hx-overflow-hidden hx-text-xs;
 
     .hextra-jupyter-code-cell-outputs {
-      @apply hx-overflow-auto hx-max-h-[50vh];
+      @apply hx-max-h-[50vh] hx-overflow-auto;
 
       pre {
-        @apply hx-text-xs hx-overflow-auto hx-max-w-full;
+        @apply hx-max-w-full hx-overflow-auto hx-text-xs;
       }
     }
   }
