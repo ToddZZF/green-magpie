@@ -14,5 +14,8 @@
         "parser": "go-template"
       }
     }
+  ],
+  "plugins": [
+    "prettier-plugin-tailwindcss"
   ]
 }
