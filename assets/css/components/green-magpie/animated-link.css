@@ -4,7 +4,7 @@ a.animated {
   @apply hx-relative hx-no-underline;
 
   &::before {
-    @apply hx-absolute hx-bottom-0 hx-left-0 hx-z-50 hx-block hx-h-[3px] hx-w-full hx-bg-primary-600 dark:hx-bg-primary-300;
+    @apply hx-absolute hx-bottom-0 hx-left-0 hx-z-50 hx-block hx-h-[3px] hx-w-full hx-bg-primary-600;
     content: "";
     transform: scaleX(0);
     transform-origin: top left;
