@@ -7,5 +7,7 @@
 {{- if $enableComments -}}
   {{- if eq site.Params.comments.type "giscus" -}}
     {{ partial "components/giscus.html" . }}
+  {{- else if eq site.Params.comments.type "remark" -}}
+    {{ partial "components/remark.html" . }}
   {{- end -}}
 {{- end -}}
