@@ -1,0 +1,5 @@
+{{/*  Check if a page has only default front matter and has no content  */}}
+
+{{ return (and 
+    (le (len .Params) 5) 
+    (eq (len (trim .Content " \t\n")) 0)) }}

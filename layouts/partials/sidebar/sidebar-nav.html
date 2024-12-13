@@ -1,0 +1,21 @@
+{{- $currentPage := . -}}
+{{- range .Site.Menus.main -}}
+  {{- if eq .Params.type "search" -}}
+    {{/* do nothing */}}
+  {{- else -}}
+    {{- $link := .URL -}}
+    {{- with .PageRef -}}
+      {{- if hasPrefix . "/" -}}
+        {{- $link = relLangURL (strings.TrimPrefix "/" .) -}}
+      {{- end -}}
+    {{- end -}}
+
+    {{- $active := or ($currentPage.HasMenuCurrent "main" .) ($currentPage.IsMenuCurrent "main" .) -}}
+    {{- $linkTitle := (or (T .Identifier) .Name | safeHTML) -}}
+
+
+    <li>
+      {{- partial "sidebar/sidebar-item-link.html" (dict "active" $active "title" $linkTitle "link" $link) -}}
+    </li>
+  {{- end -}}
+{{- end -}}

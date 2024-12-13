@@ -1,0 +1,47 @@
+{{/*  对 series 文章进行分类  */}}
+
+{{/* 分别处理带版本号的文件与不带版本号的文件 */}}
+{{ $items := slice }}
+{{- $versionItems := slice -}}
+{{- $nonVersionItems := slice -}}
+{{- range . -}}
+  {{/* 提取文件名，如果文件名是 index，则用文件夹替换 */}}
+  {{- $fileName := .File.BaseFileName -}}
+  {{- if or (eq $fileName "index") (eq $fileName "_index") -}}
+    {{- $fileName = path.Base .File.Dir -}}
+  {{- end -}}
+  {{/* 提取文件名前面的版本号，形如 1、1.2、1.2.3 */}}
+  {{- $matches := findRE "^\\d+(\\.\\d+){0,2}" $fileName -}}
+  {{/* 如果匹配到，就加入 versionItems，反之加入 nonVersionItems */}}
+  {{- if gt (len $matches) 0 -}}
+    {{- $version := index $matches 0 }}
+    {{- $versionParts := split $version "." -}}
+
+    {{/* 提取版本号的每一位，major.minor.patch */}}
+    {{- $major := 0 -}}
+    {{- $minor := 0 -}}
+    {{- $patch := 0 -}}
+
+    {{- if ge (len $versionParts) 1 -}}
+      {{- $major = int (index $versionParts 0) -}}
+    {{- end -}}
+    {{- if ge (len $versionParts) 2 -}}
+      {{- $minor = int (index $versionParts 1) -}}
+    {{- end -}}
+    {{- if ge (len $versionParts) 3 -}}
+      {{- $patch = int (index $versionParts 2) -}}
+    {{- end -}}
+    {{/* 构造排序值 versionValue，major*100000+minor*100+patch */}}
+    {{- $versionValue := (add $patch (mul $minor 100) (mul $major 100000)) -}}
+    {{- $versionItems = $versionItems | append (dict "versionValue" $versionValue "page" .) -}}
+  {{- else }}
+    {{- $nonVersionItems = $nonVersionItems | append . -}}
+  {{- end }}
+{{- end }}
+
+{{/* 基于 versionValue 对带版本号的文章进行排序 */}}
+{{- $sortedVersionItems := sort $versionItems "versionValue" "asc" -}}
+{{- $items = (apply $sortedVersionItems "index" "." "page") -}}
+{{- $items = union $items $nonVersionItems -}}
+
+{{- return $items -}}
