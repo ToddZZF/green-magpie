@@ -1,0 +1,15 @@
+{{- /* list people according to list */ -}}
+{{- $image := .Get "image" -}}
+{{- $link := .Get "link" -}}
+{{- $title := .Get "title" -}}
+
+
+<li class="not-prose hx-inline-flex hx-items-center hx-gap-2 hx-rounded-full hx-border hx-border-solid hx-p-2 hx-pr-4">
+  <img class="not-prose hx-h-6 hx-w-6 hx-rounded-full hx-object-cover" loading="lazy" decoding="async" {{ if $image }}src="{{ $image }}"{{ end }} alt="{{ $title }}" />
+  {{ if $link }}
+    {{- $external := strings.HasPrefix $link "http" -}}
+    <a class="not-prose" href="{{ $link }}" {{ if $external }}target="_blank" rel="noreferrer"{{ end }}>{{ $title }}</a>
+  {{ else }}
+    <a class="not-prose">{{ $title }}</a>
+  {{ end }}
+</li>
