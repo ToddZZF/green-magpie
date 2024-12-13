@@ -22,6 +22,18 @@
   }
   :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     @apply hx-text-primary-600 hx-underline hx-decoration-from-font [text-underline-position:from-font];
+    --offset: 0.1em;
+    text-decoration: underline 0.1em;
+    text-underline-offset: var(--offset, 0.2em);
+    transition:
+      --offset 200ms ease,
+      text-decoration-color 200ms ease;
+
+    &:hover,
+    &:focus {
+      --offset: 0.4em;
+      @apply hx-text-primary-700 dark:hx-text-primary-500;
+    }
   }
   :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     @apply hx-mt-6 hx-border-gray-300 hx-italic hx-text-gray-700 first:hx-mt-0 dark:hx-border-gray-700 dark:hx-text-gray-400 ltr:hx-border-l-2 ltr:hx-pl-6 rtl:hx-border-r-2 rtl:hx-pr-6;
@@ -88,6 +100,29 @@
   }
   .footnotes {
     @apply hx-mt-12 hx-text-sm;
+  }
+}
+
+/* https://css-irl.info/animating-underlines/ */
+@property --offset {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@supports not (background: paint(something)) {
+  .content {
+    /* https://css-irl.info/animating-underlines/ */
+    :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+      transition:
+        text-underline-offset 200ms ease,
+        text-decoration-color 200ms ease;
+
+      &:hover,
+      &:focus {
+        text-underline-offset: 0.4em;
+      }
+    }
   }
 }
 
