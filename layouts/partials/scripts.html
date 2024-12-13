@@ -20,9 +20,9 @@
 {{- partial "scripts/mermaid.html" . -}}
 
 {{/* Math */}}
-{{- $math_renderer := default "katex" .Site.Params.math.renderer -}}
+{{- $math_renderer := .Site.Params.math.renderer | default "katex" -}}
 {{- if eq $math_renderer "mathjax" -}}
-  {{- partial "scripts/katex.html" . -}}
+{{- partial "scripts/mathjax.html" . -}}
 {{- else if eq $math_renderer "katex" -}}
-  {{- partial "scripts/mathjax.html" . -}}
+{{- partial "scripts/katex.html" . -}}
 {{- end -}}
