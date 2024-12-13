@@ -17,7 +17,7 @@ outputs:
   page: [HTML]
   section: [HTML, RSS]
 
-defaultContentLanguage: en
+defaultContentLanguage: zh-cn
 languages:
   en:
     languageName: English
@@ -48,6 +48,25 @@ markup:
   goldmark:
     renderer:
       unsafe: true
+    extensions:
+      extras:
+        delete:
+          enable: true
+        mark:
+          enable: true
+      passthrough:
+        delimiters:
+          block:
+          - - \[
+            - \]
+          - - $$
+            - $$
+          inline:
+          - - \(
+            - \)
+          - - $
+            - $
+        enable: true
   highlight:
     noClasses: false
 
@@ -104,7 +123,7 @@ params:
     displayLogo: true
     logo:
       path: images/logo.svg
-      dark: images/logo-dark.svg
+      # dark: images/logo-dark.svg
       # width: 40
       # height: 20
       # link: /
@@ -112,7 +131,7 @@ params:
 
   page:
     # full (100%), wide (90rem), normal (1280px)
-    width: normal
+    width: wide
 
   theme:
     # light | dark | system
