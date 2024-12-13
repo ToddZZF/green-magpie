@@ -1,8 +1,8 @@
 {{- $enableFooterSwitches := .Scratch.Get "enableFooterSwitches" | default false -}}
 {{- $displayThemeToggle := site.Params.theme.displayToggle | default true -}}
 
-{{- $copyright := (T "copyright") | default "© 2024 Hextra." -}}
-{{- $poweredBy := (T "poweredBy") | default "Powered by Hextra" -}}
+{{- $copyright := (T "copyright") | default "© 2024 Green-Magpie." -}}
+{{- $poweredBy := (T "poweredBy") | default "Powered by Hugo" -}}
 
 {{- $footerWidth := "hx-max-w-screen-xl" -}}
 {{- with .Site.Params.footer.width -}}
@@ -35,11 +35,11 @@
 </footer>
 
 {{- define "theme-credit" -}}
-  <a class="hx-flex hx-items-center hx-gap-1 hx-text-sm hx-text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://github.com/imfing/hextra">
+  <a class="hx-flex hx-items-center hx-gap-1 hx-text-sm hx-text-current" target="_blank" rel="noopener noreferrer" title="Hextra GitHub Homepage" href="https://gohugo.io/">
     <span>
       {{- . | markdownify -}}
-      {{- if strings.Contains . "Hextra" -}}
-        {{- partial "utils/icon.html" (dict "name" "hextra" "attributes" `height=1em class="hx-inline-block ltr:hx-ml-1 rtl:hx-mr-1 hx-align-[-2.5px]"`) -}}
+      {{- if strings.Contains . "Hugo" -}}
+        {{- partial "utils/icon.html" (dict "name" "hugo" "attributes" `height=1em class="hx-inline-block ltr:hx-ml-1 rtl:hx-mr-1 hx-align-[-2.5px]"`) -}}
       {{- end -}}
     </span>
   </a>
