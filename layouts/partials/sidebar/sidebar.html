@@ -1,0 +1,122 @@
+{{- $context := .context -}}
+
+{{- $disableSidebar := .disableSidebar | default false -}}
+{{- $displayPlaceholder := .displayPlaceholder | default false -}}
+
+{{- $sidebarClass := cond $disableSidebar (cond $displayPlaceholder "md:hx-hidden xl:hx-block" "md:hx-hidden") "md:hx-sticky" -}}
+
+{{- $navRoot := cond (eq site.Home.Type "docs") site.Home $context.FirstSection -}}
+{{- $pageURL := $context.RelPermalink -}}
+
+{{/* EXPERIMENTAL */}}
+{{- if .context.Params.sidebar.hide -}}
+  {{- $disableSidebar = true -}}
+  {{- $displayPlaceholder = true -}}
+{{- end -}}
+
+
+<div class="mobile-menu-overlay hx-fixed hx-inset-0 hx-z-10 hx-hidden hx-bg-black/80 [transition:background-color_1.5s_ease] dark:hx-bg-black/60"></div>
+<aside class="sidebar-container {{ $sidebarClass }} hx-flex hx-flex-col max-md:[transform:translate3d(0,-100%,0)] md:hx-top-16 md:hx-w-64 md:hx-shrink-0 md:hx-self-start print:hx-hidden">
+  <!-- Search bar on small screen -->
+  <div class="hx-px-4 hx-pt-4 md:hx-hidden">
+    {{ partial "search.html" }}
+  </div>
+  <div class="hextra-scrollbar hx-grow hx-overflow-y-auto hx-overflow-x-hidden hx-p-4 md:hx-h-[calc(100vh-var(--navbar-height)-var(--menu-height))]">
+    <ul class="hx-flex hx-flex-col hx-gap-1 md:hx-hidden">
+      <!-- Nav -->
+      {{ template "sidebar-main" (dict "context" site.Home "pageURL" $pageURL "page" $context "toc" true) -}}
+      {{ partial "sidebar/sidebar-footer.html" }}
+    </ul>
+
+    <!-- Sidebar on large screen -->
+    {{- if $disableSidebar -}}
+      {{- if $displayPlaceholder }}<div class="hx-h-0 hx-w-64 hx-shrink-0 max-xl:hx-hidden"></div>{{ end -}}
+      {{ .context.Scratch.Set "enableFooterSwitches" true }}
+    {{- else -}}
+      <ul class="hx-flex hx-flex-col hx-gap-1 max-md:hx-hidden">
+        {{ template "sidebar-main" (dict "context" $navRoot "page" $context  "pageURL" $pageURL) }}
+        {{ partial "sidebar/sidebar-footer.html" }}
+      </ul>
+    {{ end -}}
+  </div>
+  {{/* Hide theme switch when sidebar is disabled */}}
+  {{ $switchesClass := cond $disableSidebar "md:hx-hidden" "" -}}
+  {{ $displayThemeToggle := (site.Params.theme.displayToggle | default true) -}}
+
+  {{ if or hugo.IsMultilingual $displayThemeToggle }}
+    <div
+      class="{{ $switchesClass }} {{ with hugo.IsMultilingual }}
+        hx-justify-end
+      {{ end }} hx-sticky hx-bottom-0 hx-mx-4 hx-flex hx-items-center hx-gap-2 hx-border-t hx-bg-white hx-py-4 hx-shadow-[0_-12px_16px_#fff] contrast-more:hx-border-neutral-400 contrast-more:hx-shadow-none dark:hx-border-neutral-800 dark:hx-bg-dark dark:hx-shadow-[0_-12px_16px_#111] contrast-more:dark:hx-shadow-none"
+      data-toggle-animation="show"
+    >
+      {{- with hugo.IsMultilingual -}}
+        {{- partial "language-switch" (dict "context" $context "grow" true) -}}
+        {{- with $displayThemeToggle }}{{ partial "theme-toggle" (dict "hideLabel" true) }}{{ end -}}
+      {{- else -}}
+        {{- with $displayThemeToggle -}}
+          <div class="hx-flex hx-grow hx-flex-col">{{ partial "theme-toggle" }}</div>
+        {{- end -}}
+      {{- end -}}
+    </div>
+  {{- end -}}
+</aside>
+
+{{- define "sidebar-main" -}}
+  {{ template "sidebar-tree" (dict "context" .context "level" 0 "page" .page "pageURL" .pageURL "toc" (.toc | default false)) }}
+{{- end -}}
+
+{{- define "sidebar-tree" -}}
+  {{- if ge .level 4 -}}
+    {{- return -}}
+  {{- end -}}
+
+  {{- $context := .context -}}
+  {{- $page := .page }}
+  {{- $pageURL := .page.RelPermalink -}}
+  {{- $level := .level -}}
+  {{- $toc := .toc | default false -}}
+
+  {{- with $items := union .context.RegularPages .context.Sections -}}
+    {{- $items = where $items "Params.sidebar.exclude" "!=" true -}}
+    {{- if eq $level 0 -}}
+      {{- range $items.ByWeight }}
+        {{- if .Params.sidebar.separator -}}
+          <li class="hx-mb-2 hx-mt-5 hx-px-2 hx-py-1.5 hx-text-sm hx-font-semibold hx-text-gray-900 [word-break:break-word] first:hx-mt-0 dark:hx-text-gray-100">
+            <span class="hx-cursor-default">{{ partial "utils/title" . }}</span>
+          </li>
+        {{- else -}}
+          {{- $active := eq $pageURL .RelPermalink -}}
+          {{- $shouldOpen := or (.Params.sidebar.open) (.IsAncestor $page) $active | default true }}
+          <li class="{{ if $shouldOpen }}open{{ end }}">
+            {{- $linkTitle := partial "utils/title" . -}}
+            {{- partial "sidebar/sidebar-item-link.html" (dict "context" . "active" $active "title" $linkTitle "link" .RelPermalink) -}}
+            {{- if and $toc $active -}}
+              {{- partial "sidebar/sidebar-toc.html" (dict "page" .) -}}
+            {{- end -}}
+            {{- template "sidebar-tree" (dict "context" . "page" $page "pageURL" $pageURL "level" (add $level 1) "toc" $toc) -}}
+          </li>
+        {{- end -}}
+      {{- end -}}
+    {{- else -}}
+      <div class="hx-overflow-hidden ltr:hx-pr-0">
+        <ul
+          class='hx-relative hx-flex hx-flex-col hx-gap-1 before:hx-absolute before:hx-inset-y-1 before:hx-w-px before:hx-bg-gray-200 before:hx-content-[""] dark:before:hx-bg-neutral-800 ltr:hx-ml-3 ltr:hx-pl-3 ltr:before:hx-left-0 rtl:hx-mr-3 rtl:hx-pr-3 rtl:before:hx-right-0'
+        >
+          {{- range $items.ByWeight }}
+            {{- $active := eq $pageURL .RelPermalink -}}
+            {{- $shouldOpen := or (.Params.sidebar.open) (.IsAncestor $page) $active | default true }}
+            {{- $linkTitle := partial "utils/title" . -}}
+            <li class="{{ if $shouldOpen }}open{{ end }} hx-flex hx-flex-col">
+              {{- partial "sidebar/sidebar-item-link.html" (dict "context" . "active" $active "title" $linkTitle "link" .RelPermalink) -}}
+              {{- if and $toc $active -}}
+                {{ partial "sidebar/sidebar-toc.html" (dict "page" .) }}
+              {{- end }}
+              {{ template "sidebar-tree" (dict "context" . "page" $page "pageURL" $pageURL "level" (add $level 1) "toc" $toc) }}
+            </li>
+          {{- end -}}
+        </ul>
+      </div>
+    {{- end -}}
+  {{- end }}
+{{- end -}}
