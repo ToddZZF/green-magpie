@@ -63,6 +63,8 @@ module.exports = {
       orange: colors.orange,
       blue: colors.blue,
       yellow: colors.yellow,
+      green: colors.green,
+      purple: colors.purple,
       primary: {
         50: makePrimaryColor(97),
         100: makePrimaryColor(94),

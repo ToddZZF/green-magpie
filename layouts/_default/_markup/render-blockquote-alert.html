@@ -1,0 +1,37 @@
+{{ $emojis := dict
+  "note" ":memo:"
+  "tip" ":jigsaw:"
+  "important" ":dart:"
+  "warning" ":sparkles:"
+  "caution" ":balloon:"
+}}
+
+{{ $orangeClass := "hx-border-orange-200 hx-bg-orange-50 hx-text-orange-800 dark:hx-border-orange-400/30 dark:hx-bg-orange-400/20 dark:hx-text-orange-300" }}
+{{ $greenClass := "hx-border-green-200 hx-bg-green-100 hx-text-green-900 dark:hx-border-green-200/30 dark:hx-bg-green-900/30 dark:hx-text-green-200" }}
+{{ $blueClass := "hx-border-blue-200 hx-bg-blue-100 hx-text-blue-900 dark:hx-border-blue-200/30 dark:hx-bg-blue-900/30 dark:hx-text-blue-200" }}
+{{ $yellowClass := "hx-border-yellow-200 hx-bg-yellow-50 hx-text-yellow-900 dark:hx-border-yellow-200/30 dark:hx-bg-yellow-700/30 dark:hx-text-yellow-200" }}
+{{ $redClass := "hx-border-red-200 hx-bg-red-100 hx-text-red-900 dark:hx-border-red-200/30 dark:hx-bg-red-900/30 dark:hx-text-red-200" }}
+{{ $purpleClass := "hx-border-purple-200 hx-bg-purple-100 hx-text-purple-900 dark:hx-border-purple-200/30 dark:hx-bg-purple-900/30 dark:hx-text-purple-200" }}
+
+{{ $class := dict
+  "note" $blueClass
+  "tip" $greenClass
+  "important" $purpleClass
+  "warning" $yellowClass
+  "caution" $redClass
+}}
+
+
+<div class="{{ index $class .AlertType }} hx-mt-6 hx-flex hx-overflow-x-auto hx-rounded-lg hx-border hx-py-2 contrast-more:hx-border-current contrast-more:dark:hx-border-current hx-pr-4">
+  <div class="hx-pl-3 hx-pr-2">
+    <div class="hx-select-none hx-text-xl hx-leading-7" style="font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">
+      {{ transform.Emojify (index $emojis .AlertType) }}
+    </div>
+  </div>
+
+  <div class="hx-w-full hx-min-w-0 hx-leading-7">
+    <div class="hx-mt-6 hx-leading-7 first:hx-mt-0">
+      {{ .Text }}
+    </div>
+  </div>
+</div>
