@@ -1,11 +1,12 @@
 {{- $context := .context -}}
+{{- $disableSidebar := .disableSidebar | default false -}}
+{{- $displayPlaceholder := .displayPlaceholder | default false -}}
 
 {{/*  add series support  */}}
 {{ $depth := partial "utils/conditions/is-ancestor-series.html" $context }}
 
 {{ if gt $depth 0 }}
-  {{ warnf "%s %d" $context.Title $depth}}
-  {{- partial "sidebar/sidebar.html" (dict "context" $context) -}}
+  {{- partial "sidebar/sidebar-series.html" (dict "context" $context "disableSidebar" $disableSidebar "displayPlaceholder" $displayPlaceholder) -}}
 {{ else }}
-  {{- partial "sidebar/sidebar.html" (dict "context" $context) -}}
+  {{- partial "sidebar/sidebar.html" (dict "context" $context "disableSidebar" $disableSidebar "displayPlaceholder" $displayPlaceholder) -}}
 {{ end }}
