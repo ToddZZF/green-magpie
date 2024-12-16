@@ -1,5 +1,5 @@
 {{- $summary := "" }}
-{{- $open := "false" }}
+{{- $open := false }}
 {{- if .IsNamedParams }}
   {{- $summary = .Get "summary" }}
   {{- with .Get "open" }}{{ $open = eq . "true" }}{{ end }}
@@ -10,12 +10,14 @@
 
 
 <details class="hx-group hx-mt-4 hx-rounded-lg hx-bg-neutral-50 hx-p-2 last-of-type:hx-mb-0 dark:hx-bg-neutral-800" {{ if $open }}open{{ end }}>
-  {{- if gt (len $summary) 0 }}
-    <summary
-      class="hx-flex hx-cursor-pointer hx-select-none hx-list-none hx-items-center hx-rounded hx-p-1 hx-transition-colors before:hx-mr-1 before:hx-inline-block before:hx-transition-transform before:hx-content-[''] hover:hx-bg-gray-100 group-open:before:hx-rotate-90 dark:before:hx-invert dark:hover:hx-bg-neutral-800 rtl:before:hx-rotate-180"
-    >
-      <strong class="hx-text-lg">{{ $summary | markdownify }}</strong>
-    </summary>
+  {{- with $summary}}
+    {{- if gt (len $summary) 0 }}
+      <summary
+        class="hx-flex hx-cursor-pointer hx-select-none hx-list-none hx-items-center hx-rounded hx-p-1 hx-transition-colors before:hx-mr-1 before:hx-inline-block before:hx-transition-transform before:hx-content-[''] hover:hx-bg-gray-100 group-open:before:hx-rotate-90 dark:before:hx-invert dark:hover:hx-bg-neutral-800 rtl:before:hx-rotate-180"
+      >
+        <strong class="hx-text-lg">{{ $summary | markdownify }}</strong>
+      </summary>
+    {{- end }}
   {{- end }}
   <div class="hx-overflow-hidden hx-p-2">
     {{ .InnerDeindent | markdownify }}
