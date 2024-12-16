@@ -2689,6 +2689,16 @@ nav .search-wrapper {
   display: inline-flex;
   align-items: center;
 }
+ul.pagination {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+  gap: 0.5rem;
+}
+ul.pagination li.page-item {
+  display: inline-flex;
+  padding: 0.5rem;
+}
 /* https://tobiasahlin.com/blog/css-trick-animating-link-underlines/ */
 a.animated {
   position: relative;

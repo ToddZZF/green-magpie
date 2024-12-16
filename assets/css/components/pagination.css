@@ -1,0 +1,7 @@
+ul.pagination {
+    @apply hx-list-none hx-flex hx-justify-center hx-gap-2;
+
+    li.page-item {
+        @apply hx-inline-flex hx-p-2;
+    }
+}

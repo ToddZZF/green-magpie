@@ -12,6 +12,7 @@
 @import "components/hextra/feature-grid.css";
 @import "components/jupyter.css";
 @import "components/badge.css";
+@import "components/pagination.css";
 
 @import "components/green-magpie/animated-link.css";
 @import "components/green-magpie/style-image.css";
