@@ -70,7 +70,7 @@
         console.log("MathJax Initialized!");
         document.querySelectorAll('mjx-container[jax="CHTML"][display="true"]').forEach((mjx) => {
           const wrapper = document.createElement("div");
-          wrapper.style.overflowX = "scroll";
+          wrapper.style.overflowX = "auto";
           wrapper.style.width = "100%";
           mjx.parentNode.insertBefore(wrapper, mjx);
           wrapper.appendChild(mjx);
