@@ -17,14 +17,14 @@
 {{/* 默认的根目录是第一级 section */}}
 {{- $navRoot := $context.FirstSection -}}
 {{ $series := false }}
-{{- if eq $context.Type "series" -}}
+{{- if and (isset $context.Params "series") .Params.series -}}
   {{/* 如果页面是 series，那么就从该页面的上一级开始 */}}
   {{- $series = $context -}}
   {{- $navRoot = $series.Parent -}}
 {{- else -}}
   {{- range $context.Ancestors -}}
     {{/* 如果该页面从属于 series，那么从该 series page 的上一级开始 */}}
-    {{- if eq .Type "series" -}}
+    {{- if and (isset .Params "series") .Params.series -}}
       {{- $series = . -}}
       {{- $navRoot = $series.Parent -}}
       {{- break -}}
