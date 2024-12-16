@@ -11,7 +11,7 @@
         {{ $paginator := .Paginate $pages 10 }}
         {{- range $paginator.Pages }}
           <div class="hx-mb-10">
-            <h3><a style="color: inherit; text-decoration: none;" class="hx-mt-8 hx-block hx-text-2xl hx-font-semibold" href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+            <h3><a style="color: inherit; text-decoration: none;" class="animated hx-mt-8 hx-text-2xl hx-font-semibold" href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
             {{- if site.Params.blog.list.displayTags -}}
               {{ with .Params.tags }}
                 <p class="hx-text-sm hx-leading-7 hx-opacity-50">
