@@ -101,6 +101,12 @@
   .footnotes {
     @apply hx-mt-12 hx-text-sm;
   }
+  .footnote-ref {
+    @apply before:hx-content-['['] after:hx-content-[']'];
+  }
+  hr {
+    @apply hx-mt-6;
+  }
 }
 
 /* https://css-irl.info/animating-underlines/ */
