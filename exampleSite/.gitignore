@@ -1,5 +1,6 @@
 node_modules/
 public/
 resources/
+content/courses/
 
 .hugo_build.lock

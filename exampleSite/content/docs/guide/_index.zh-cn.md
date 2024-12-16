@@ -7,9 +7,15 @@ sidebar:
   open: true
 ---
 
-探索以下各节以学习如何使用 Hextra 编写内容：
-
 <!--more-->
+
+Green-Magpie 新增的特性请参考：
+
+{{< cards >}}
+  {{< card link="green-magpie" title="Green-Magpie" icon="document-duplicate" >}}
+{{< /cards >}}
+
+探索以下各节以学习如何使用 Hextra 编写内容：
 
 {{< cards >}}
   {{< card link="organize-files" title="目录结构" icon="document-duplicate" >}}
