@@ -1,5 +1,5 @@
 {{- $summary := "" }}
-{{- $open := false }}
+{{- $open := "false" }}
 {{- if .IsNamedParams }}
   {{- $summary = .Get "summary" }}
   {{- with .Get "open" }}{{ $open = eq . "true" }}{{ end }}
