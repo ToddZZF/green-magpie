@@ -17,7 +17,7 @@
 {{/* 默认的根目录是第一级 section */}}
 {{- $navRoot := $context.FirstSection -}}
 {{ $series := false }}
-{{- if and (isset $context.Params "series") .Params.series -}}
+{{- if and (isset $context.Params "series") $context.Params.series -}}
   {{/* 如果页面是 series，那么就从该页面的上一级开始 */}}
   {{- $series = $context -}}
   {{- $navRoot = $series.Parent -}}
