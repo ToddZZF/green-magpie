@@ -23,37 +23,42 @@ params:
 提示块（alert）是一种特殊的，带颜色的引用，在 [Hugo](https://gohugo.io/render-hooks/blockquotes/#alerts)、[Github](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#alerts)、[Obsidian](https://help.obsidian.md/Editing+and+formatting/Callouts)、[Typora](https://support.typora.io/Markdown-Reference/#callouts--github-style-alerts) 中都支持，在 VS Code 中安装 Markdown Alert 插件后也能支持。它的格式是：
 
 ```text {filename="Markdown"}
-> [!NOTE]
-> 文字
-> 文字
+> [!NOTE] 注释
+> Useful information that users should know, even when skimming content.
+
+> [!TIP] 贴士
+> Helpful advice for doing things better or more easily.
+
+> [!IMPORTANT] 重要
+> Key information users need to know to achieve their goal.
+
+> [!WARNING] 注意
+> Urgent info that needs immediate user attention to avoid problems.
+
+> [!CAUTION] 警告
+> Advises about risks or negative outcomes of certain actions.
 ```
-
-第一行的 `NOTE` 决定了其颜色，一共有五种颜色：
-
-- `NOTE` 蓝色
-- `TIP` 绿色
-- `IMPORTANT` 紫色
-- `WARNING` 黄色
-- `CAUTION` 红色
 
 它们的效果如下：
 
-> [!NOTE]
+> [!NOTE] 注释
 > Useful information that users should know, even when skimming content.
 
-> [!TIP]
+> [!TIP] 贴士
 > Helpful advice for doing things better or more easily.
 
-> [!IMPORTANT]
+> [!IMPORTANT] 重要
 > Key information users need to know to achieve their goal.
 
-> [!WARNING]
+> [!WARNING] 注意
 > Urgent info that needs immediate user attention to avoid problems.
 
-> [!CAUTION]
+> [!CAUTION] 警告
 > Advises about risks or negative outcomes of certain actions.
 
 可以合理使用颜色来对不同内容进行区分，比如某个例题的题干和答案可以用绿色和蓝色区分。
+
+> 2024/12/17 原主题也更新了 alert 支持，在其基础上修改了样式，提高可读性和泛用性。
 
 ## image-badge
 
