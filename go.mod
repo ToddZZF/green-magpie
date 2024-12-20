@@ -1,3 +1,3 @@
-module github.com/imfing/hextra
+module github.com/toddzzf/green-magpie
 
 go 1.20
