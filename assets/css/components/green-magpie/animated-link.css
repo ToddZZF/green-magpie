@@ -1,17 +1,14 @@
 /* https://tobiasahlin.com/blog/css-trick-animating-link-underlines/ */
 
 a.animated {
-  @apply hx-relative hx-no-underline;
+  @apply hx-bg-gradient-to-r hx-from-primary-600 hx-to-primary-600 hx-bg-no-repeat hx-no-underline;
 
-  &::before {
-    @apply hx-absolute hx-bottom-0 hx-left-0 hx-z-50 hx-block hx-h-[3px] hx-w-full hx-bg-primary-600;
-    content: "";
-    transform: scaleX(0);
-    transform-origin: top left;
-    transition: transform 0.3s ease;
-  }
-
-  &:hover::before {
-    transform: scaleX(1);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 0.25rem;
+  transition: background-size 0.3s ease;
+  &:hover,
+  &:focus {
+    background-size: 100% 0.25rem;
   }
 }

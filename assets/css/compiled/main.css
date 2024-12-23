@@ -1003,6 +1003,10 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(254 249 195 / var(--tw-border-opacity));
 }
+.hx-border-yellow-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 240 138 / var(--tw-border-opacity));
+}
 .hx-bg-amber-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 243 199 / var(--tw-bg-opacity));
@@ -1164,6 +1168,9 @@ video {
 }
 .hx-pb-px {
   padding-bottom: 1px;
+}
+.hx-pl-3 {
+  padding-left: 0.75rem;
 }
 .hx-pl-\[max\(env\(safe-area-inset-left\)\,1\.5rem\)\] {
   padding-left: max(env(safe-area-inset-left),1.5rem);
@@ -2709,26 +2716,20 @@ ul.pagination li.page-item {
 }
 /* https://tobiasahlin.com/blog/css-trick-animating-link-underlines/ */
 a.animated {
-  position: relative;
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  --tw-gradient-from: hsl(var(--primary-hue) var(--primary-saturation) calc(calc(var(--primary-lightness) / 50) * 45)) var(--tw-gradient-from-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-to: hsl(var(--primary-hue) var(--primary-saturation) calc(calc(var(--primary-lightness) / 50) * 45)) var(--tw-gradient-to-position);
   text-decoration-line: none;
+
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 0.25rem;
+  transition: background-size 0.3s ease;
 }
-a.animated::before {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  z-index: 50;
-  display: block;
-  height: 3px;
-  width: 100%;
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--primary-hue) var(--primary-saturation) calc(calc(var(--primary-lightness) / 50) * 45) / var(--tw-bg-opacity));
-    content: "";
-    transform: scaleX(0);
-    transform-origin: top left;
-    transition: transform 0.3s ease;
-}
-a.animated:hover::before {
-    transform: scaleX(1);
+a.animated:hover,
+  a.animated:focus {
+    background-size: 100% 0.25rem;
   }
 @media (min-width: 768px) {
 
