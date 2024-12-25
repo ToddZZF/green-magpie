@@ -6,6 +6,22 @@ prev: /docs/guide
 
 为了满足 <https://SCUTEEE.com>  的需求，Green-Magpie 新增了如下特性：
 
+## Pop-up-once 消息框
+
+`pop-up-once` 消息框会在页面加载完成后弹出，然后就会缩小到右上角，并且当读者往下滑时隐藏。用法是：
+
+```text {filename="Markdown"}
+{{</* green-magpie/pop-up-once */>}}
+这是一个 pop-up-once 示例。
+{{</* /green-magpie/pop-up-once */>}}
+```
+
+{{< green-magpie/pop-up-once >}}
+这是一个 pop-up-once 示例。
+{{< /green-magpie/pop-up-once >}}
+
+这个每篇文章只能有一个，多个会出 bug。并且里面只能支持一般文字和链接，不支持过于复杂的 Markdown。
+
 ## Mathjax
 
 Green-Magpie 引入了新的数学渲染库 `Mathjax`，可以在网站设置中选择。默认是 `KaTeX`.

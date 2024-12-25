@@ -3,6 +3,10 @@ title: Hextra 主题
 layout: hextra-home
 ---
 
+{{< green-magpie/pop-up-once >}}
+Green-Magpie 在 Hextra 的基础上进行了优化。
+{{< /green-magpie/pop-up-once >}}
+
 {{< hextra/hero-badge >}}
   <div class="hx-w-2 hx-h-2 hx-rounded-full hx-bg-primary-400"></div>
   <span>免费 开源</span>
