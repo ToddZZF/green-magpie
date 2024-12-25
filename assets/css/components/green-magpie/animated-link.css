@@ -1,4 +1,5 @@
-/* https://tobiasahlin.com/blog/css-trick-animating-link-underlines/ */
+/* https://www.dannyguo.com/blog/animated-multiline-link-underlines-with-css/ */
+/* https://codepen.io/christiancroser/pen/xqrLBm */
 
 a.animated {
   @apply hx-bg-gradient-to-r hx-from-primary-600 hx-to-primary-600 hx-bg-no-repeat hx-no-underline;
