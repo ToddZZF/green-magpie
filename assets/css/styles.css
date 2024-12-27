@@ -14,9 +14,7 @@
 @import "components/badge.css";
 @import "components/pagination.css";
 
-@import "components/green-magpie/animated-link.css";
-@import "components/green-magpie/style-image.css";
-@import "components/green-magpie/tile-image.css";
+@import "components/green-magpie/green-magpie.css";
 
 html {
   @apply hx-text-base hx-antialiased;
