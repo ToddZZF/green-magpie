@@ -2,6 +2,7 @@
 title: Green-Magpie
 weight: 1
 prev: /docs/guide
+math: true
 ---
 
 为了满足 <https://SCUTEEE.com>  的需求，Green-Magpie 新增了如下特性：
@@ -33,6 +34,14 @@ params:
 ```
 
 此外，还对过宽的公式进行了优化。
+
+2024/12/27，增加 render-passthrough.html ，修复公式中 `<` 被浏览器当作 HTML 元素的 bug. 现在 `a< b` 可以正常显示为 $a< b$
+
+$$
+\begin{align}
+a<b
+\end{align}
+$$
 
 ## Alert
 

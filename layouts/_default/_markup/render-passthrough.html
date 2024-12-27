@@ -1,0 +1,7 @@
+{{- $content := .Inner -}}
+{{- $content := replace $content "<" "< " -}}
+{{- if eq .Type "block" -}}
+  {{- printf "$$%s$$" $content -}}
+{{- else -}}
+  {{- printf "$%s$" $content -}}
+{{- end -}}
