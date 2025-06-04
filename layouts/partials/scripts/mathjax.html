@@ -1,0 +1,85 @@
+{{- if .Page.Store.Get "hasMath" -}}
+  <script>
+    MathJax = {
+      tex: {
+        displayMath: [
+          ["\\[", "\\]"],
+          ["$$", "$$"],
+        ], // block
+        inlineMath: [
+          ["\\(", "\\)"],
+          ["$", "$"],
+        ], // inline
+        macros: {
+          dif: "\\mathop{}\\!\\mathrm{d}",
+          p: "\\partial",
+        },
+      },
+      chtml: {
+        scale: 0.9,
+      },
+      svg: {
+        scale: 0.9,
+      },
+      options: {
+        a11y: {
+          assistiveMml: false, // 禁用辅助的 MathML 输出
+          sre: false, // 禁用语音引擎
+          subtitles: false, // 禁用点击显示字幕
+          viewBraille: false, // 禁用盲文
+        },
+      },
+    };
+  </script>
+  <style>
+    .MJX_LiveRegion {
+      display: none !important;
+    }
+    .MJX_LiveRegion_Show {
+      display: block !important;
+    }
+    mjx-container[jax="CHTML"] :focus {
+      outline: none !important;
+      background-color: transparent !important;
+    }
+  </style>
+  {{/* <script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script> */}}
+  {{/*  <script
+    id="MathJax-script"
+    async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"
+    integrity="sha512-T8xxpazDtODy3WOP/c6hvQI2O9UPdARlDWE0CvH1Cfqc0TXZF6GZcEKL7tIR8VbfS/7s/J6C+VOqrD6hIo++vQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>  */}}
+  {{/* https://cdn.jsdelivr.net/npm/mathjax@4.0.0-beta.7/tex-chtml.js */}}
+  {{/* https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js */}}
+  {{/* https://cdn.staticfile.net/mathjax/3.2.2/es5/tex-chtml.min.js */}}
+
+
+  <script>
+    const script = document.createElement("script");
+    script.src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js";
+    script.integrity = "sha512-T8xxpazDtODy3WOP/c6hvQI2O9UPdARlDWE0CvH1Cfqc0TXZF6GZcEKL7tIR8VbfS/7s/J6C+VOqrD6hIo++vQ==";
+    script.crossOrigin = "anonymous"; // 注意属性名为 camelCase
+    script.referrerPolicy = "no-referrer";
+
+    script.onload = () => {
+      console.log("MathJax Loaded!");
+      MathJax.startup.promise.then(() => {
+        console.log("MathJax Initialized!");
+        document.querySelectorAll('mjx-container[jax="CHTML"][display="true"]').forEach((mjx) => {
+          const wrapper = document.createElement("div");
+          wrapper.style.overflowX = "auto";
+          wrapper.style.width = "100%";
+          mjx.parentNode.insertBefore(wrapper, mjx);
+          wrapper.appendChild(mjx);
+        });
+      });
+    };
+    script.onerror = () => {
+      console.error("Failed to load MathJax.");
+    };
+    document.head.appendChild(script);
+  </script>
+{{- end -}}

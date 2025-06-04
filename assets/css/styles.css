@@ -1,5 +1,5 @@
 @import "tailwindcss" prefix(hx);
-
+@source "hugo_stats.json";
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -24,12 +24,20 @@ body {
   @apply hx:w-full hx:bg-white hx:dark:bg-dark hx:dark:text-gray-100;
 }
 
+/* :root { */
+  /* --primary-hue: 212deg; */
+  /* --primary-saturation: 100%; */
+  /* --primary-lightness: 50%; */
+  /* --navbar-height: 4rem; */
+  /* --menu-height: 3.75rem; 60px */
+/* } */
+
 :root {
-  --primary-hue: 212deg;
+  --primary-hue: 40deg;
   --primary-saturation: 100%;
   --primary-lightness: 50%;
-  --navbar-height: 4rem;
-  --menu-height: 3.75rem; /* 60px */
+  --navbar-height: 3.5rem;
+  --menu-height: 3.75rem;
 }
 
 .dark {
@@ -50,3 +58,4 @@ body {
 @import "./components/hextra/feature-grid.css";
 @import "./components/jupyter.css";
 @import "./components/badge.css";
+@import "./components/green-magpie/green-magpie.css";

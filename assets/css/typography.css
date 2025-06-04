@@ -22,6 +22,18 @@
   }
   :where(a):not(:where([class~=not-prose],[class~=not-prose] *)) {
     @apply hx:text-primary-600 hx:underline hx:decoration-from-font;
+    --offset: 0.1em;
+    text-decoration: underline 0.1em;
+    text-underline-offset: var(--offset, 0.2em);
+    transition:
+      text-underline-offset 200ms ease,
+      text-decoration-color 200ms ease;
+
+    &:hover,
+    &:focus {
+      --offset: 0.4em;
+      @apply hx:text-primary-700 hx:dark:text-primary-500;
+    }
   }
   :where(blockquote):not(:where([class~=not-prose],[class~=not-prose] *)) {
     @apply hx:mt-6 hx:border-gray-300 hx:italic hx:text-gray-700 hx:dark:border-gray-700 hx:dark:text-gray-400 hx:first:mt-0 hx:ltr:border-l-2 hx:ltr:pl-6 hx:rtl:border-r-2 hx:rtl:pr-6;
@@ -92,6 +104,10 @@
     hr {
       @apply hx:border-gray-200 hx:dark:border-neutral-800;
     }
+  }
+
+  .footnote-ref {
+    @apply hx:before:content-['['] hx:after:content-[']'];
   }
 }
 

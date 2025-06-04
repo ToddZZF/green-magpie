@@ -1,0 +1,86 @@
+{{/* pop up a message on the top right corner */}}
+
+<div
+  tabindex="0"
+  id="pop-up-once"
+  class="not-prose hx:fixed hx:right-0 hx:top-[calc(var(--navbar-height)+20px)] hx:grid translate-x-full hx:transform hx:rounded-l-lg hx:bg-primary-600 hx:p-4 hx:text-lg hx:text-white hx:shadow hx:hover:translate-x-0 hx:focus:translate-x-0"
+>
+  {{- partial "utils/icon.html" (dict "name" "information-circle" "attributes" `height=24px class="hx:inline-block hx:align-middle"`) -}}
+  <div class="hx:max-w-44 hx:overflow-hidden">
+    {{ .Inner | markdownify }}
+  </div>
+</div>
+
+<script>
+  (function () {
+    document.addEventListener("DOMContentLoaded", function () {
+      var popup = document.getElementById("pop-up-once");
+      var contentLength = popup.textContent.trim().length;
+      var duration = Math.max(contentLength * 0.15 * 1000, 3000); // At least 3 seconds
+
+      // Show the popup fully
+      setTimeout(() => {
+        popup.classList.remove("translate-x-full");
+        popup.classList.add("hx:translate-x-0");
+        popup.classList.add("is-open");
+      }, 1000);
+
+      // Partially hide the popup after the duration
+      setTimeout(() => {
+        popup.classList.remove("is-open");
+        popup.classList.remove("hx:translate-x-0");
+        popup.classList.add("translate-x-partial");
+
+        // 滚动交互逻辑
+        window.addEventListener("scroll", function () {
+          var currentScrollTop = window.scrollY;
+          var halfScreenHeight = window.innerHeight / 2;
+
+          if (currentScrollTop > halfScreenHeight) {
+            // 当下滑超过半屏时，完全隐藏弹窗
+            popup.classList.remove("is-open");
+            popup.classList.remove("translate-x-partial");
+            popup.classList.add("translate-x-full");
+          } else {
+            // 当回到顶部半屏内时，显示弹窗为部分可见
+            popup.classList.remove("translate-x-full");
+            popup.classList.add("translate-x-partial");
+          }
+        });
+      }, 1000 + duration);
+    });
+  })();
+</script>
+
+<style>
+  #pop-up-once {
+    z-index: 1;
+    grid-template-rows: auto 0fr;
+    will-change: transform;
+    transition:
+      transform 0.3s ease,
+      grid-template-rows 0.3s ease;
+  }
+
+  #pop-up-once.is-open,
+  #pop-up-once:hover,
+  #pop-up-once:focus {
+    grid-template-rows: auto 1fr;
+  }
+
+  #pop-up-once:hover,#pop-up-once:focus {
+    transform: translateX(0);
+  }
+
+  .translate-x-partial {
+    transform: translateX(100%) translateX(-3rem);
+  }
+
+  .translate-x-full {
+    transform: translateX(100%);
+  }
+
+  #pop-up-once a {
+    text-decoration: underline;
+  }
+</style>

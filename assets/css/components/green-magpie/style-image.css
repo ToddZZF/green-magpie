@@ -1,0 +1,11 @@
+.content {
+  :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    &[src*="#w-1/2"] {
+      @apply hx:md:w-1/2;
+    }
+
+    &[src*="#w-2/3"] {
+      @apply hx:md:w-2/3;
+    }
+  }
+}

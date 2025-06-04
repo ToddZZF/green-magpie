@@ -1,9 +1,21 @@
-{{- $opts := dict "output" "htmlAndMathml" "displayMode" (eq .Type "block") }}
-{{- with try (transform.ToMath .Inner $opts) }}
-  {{- with .Err }}
-    {{ errorf "Unable to render mathematical markup to HTML using the transform.ToMath function. The KaTeX display engine threw the following error: %s: see %s." . $.Position }}
-  {{- else }}
-    {{- .Value }}
-    {{- $.Page.Store.Set "hasMath" true }}
-  {{- end }}
+{{- $math_renderer := $.Page.Site.Params.math.renderer | default "katex" -}}
+{{- if eq $math_renderer "mathjax" -}}
+  {{- $content := .Inner -}}
+  {{- $content := replace $content "<" "< " -}}
+  {{- if eq .Type "block" -}}
+    {{- printf "$$%s$$" $content -}}
+  {{- else -}}
+    {{- printf "$%s$" $content -}}
+  {{- end -}}
+  {{- $.Page.Store.Set "hasMath" true }}
+{{- else if eq $math_renderer "katex" -}}
+  {{- $opts := dict "output" "htmlAndMathml" "displayMode" (eq .Type "block") }}
+  {{- with try (transform.ToMath .Inner $opts) }}
+    {{- with .Err }}
+      {{ errorf "Unable to render mathematical markup to HTML using the transform.ToMath function. The KaTeX display engine threw the following error: %s: see %s." . $.Position }}
+    {{- else }}
+      {{- .Value }}
+      {{- $.Page.Store.Set "hasMath" true }}
+    {{- end }}
+  {{- end -}}
 {{- end -}}

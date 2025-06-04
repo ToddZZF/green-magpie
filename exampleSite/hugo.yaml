@@ -190,3 +190,6 @@ params:
       # inputPosition: top
       # lang: en
       # theme: noborder_dark
+
+  math:
+   renderer: mathjax

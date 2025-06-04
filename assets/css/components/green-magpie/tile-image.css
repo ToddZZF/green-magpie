@@ -1,0 +1,22 @@
+/* https://css-tricks.com/adaptive-photo-layout-with-flexbox/ */
+
+.content {
+  :where(img):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    &[src*="#tile"] {
+      @apply hx:m-0 hx:max-h-[60vh] hx:min-h-32 hx:flex-grow hx:object-contain hx:align-bottom hx:md:h-[30vh];
+    }
+  }
+
+  :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    /* https://css-tricks.com/adaptive-photo-layout-with-flexbox/ */
+    &:has(img[src*="#tile"]) {
+      @apply hx:flex hx:flex-wrap hx:gap-4;
+
+      /* &::after {
+        content: "";
+        display: block;
+        flex-grow: 10;
+      } */
+    }
+  }
+}
