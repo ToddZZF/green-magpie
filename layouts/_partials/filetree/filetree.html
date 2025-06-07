@@ -1,0 +1,156 @@
+{{/*
+Hugo partial to render a file tree from filetree.yml located in the same directory as _index.md.
+Uses Tailwind CSS v4 with hx: prefix, vanilla JavaScript, supports recursive folder nesting,
+defaults all folders to collapsed, links file names to their URLs, avoids custom selected variant,
+fixes collapse animation and uses hx:open:hidden for icon toggle.
+Usage: {{ partial "file-tree.html" . }}
+*/}}
+
+{{/* Load filetree.yml from the same directory as _index.md */}}
+{{ $raw := .Page.Resources.GetMatch "filetree.yml" | transform.Unmarshal }}
+{{ $repo := $raw.repo }}
+{{ $tree := $raw.tree }}
+{{ $repoMain := "" }}
+{{ $repoResources := "" }}
+{{ if and $raw (isset $raw "repo") }}
+{{ $repo = $raw.repo }}
+{{ $repoMain = replaceRE "resources$" "main" $repo }}
+{{ $repoResources = $repo }}
+{{ end }}
+
+{{ if and $repo $tree }}
+{{ "## 资源目录" | markdownify }}
+<div class="hx:treeview-root hx:mt-6 not-prose" role="tree" aria-orientation="vertical">
+  <div class="hx:group">
+    {{ partial "filetree/filetree-node.html" (dict "node" $tree "prefix" "" "context" .) }}
+  </div>
+
+  <div
+    class="hx:mt-6 hx:w-full hx:rounded-xl hx:border hx:border-slate-200 hx:bg-white hx:p-4 hx:dark:border-neutral-800 hx:dark:bg-black/10 hx:flex hx:flex-col hx:items-end hx:gap-2">
+
+    <div class="hx:flex hx:items-center hx:text-sm hx:text-slate-700 hx:dark:text-slate-300">
+      <span class="hx:mr-2">觉得不错？来点个赞吧</span>
+      <a href="https://github.com/SCUTEEE/SCUTEEE"
+        class="hx:inline-block hx:px-2 hx:py-0.5 hx:text-xs hx:rounded-md hx:bg-yellow-100 hx:text-yellow-800 hx:dark:bg-yellow-900/30 hx:dark:text-yellow-300 hover:hx:underline">
+        ⭐ Star · <span id="star-count">...</span>
+      </a>
+    </div>
+
+    <div class="hx:flex hx:items-center hx:text-sm hx:text-slate-700 hx:dark:text-slate-300">
+      <span class="hx:mr-2">想投稿？上传</span>
+      {{ if $repoMain }}
+      <a href="{{ $repoMain }}" class="hx:ml-1 hx:px-2 hx:py-0.5 hx:rounded hx:text-sm
+         hx:bg-slate-100 hx:text-slate-700
+         hx:dark:bg-neutral-800 hx:dark:text-slate-200
+         hx:hover:bg-primary-100 hx:hover:text-primary-800
+         hx:dark:hover:bg-primary-800/50 hx:dark:hover:text-white">
+        文字
+      </a>
+      {{ end }}
+      {{ if $repoResources }}
+      <a href="{{ $repoResources }}" class="hx:ml-2 hx:px-2 hx:py-0.5 hx:rounded hx:text-sm
+         hx:bg-slate-100 hx:text-slate-700
+         hx:dark:bg-neutral-800 hx:dark:text-slate-200
+         hx:hover:bg-primary-100 hx:hover:text-primary-800
+         hx:dark:hover:bg-primary-800/50 hx:dark:hover:text-white">
+        文件
+      </a>
+      {{ end }}
+    </div>
+
+    <div class="hx:text-sm hx:text-slate-700 hx:dark:text-slate-300">
+      别忘了阅读
+      <a href="https://hoa.moe/blog/contribution-guide/"
+        class="hx:underline hx:text-blue-600 hx:dark:text-blue-400 hover:hx:no-underline">《投稿指南》</a>
+    </div>
+  </div>
+
+
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const repo = "SCUTEEE/SCUTEEE"; // 根据实际 repo 修改
+    const res = await fetch(`https://api.github.com/repos/${repo}`);
+    if (res.ok) {
+      const data = await res.json();
+      document.getElementById("star-count").textContent = data.stargazers_count;
+    }
+  });
+</script>
+
+
+{{/* JavaScript for accordion toggle and selection */}}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const isDarkMode = () =>
+      document.documentElement.classList.contains('dark') ||
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    const toggles = document.querySelectorAll('.hx\\:toggle');
+    toggles.forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const accordion = toggle.closest('.hx\\:accordion');
+        const content = accordion.querySelector('.hx\\:content');
+        const isExpanded = accordion.classList.contains('hx:open');
+
+        const iconPlus = toggle.querySelector('.hx\\:icon-plus');
+        const iconMinus = toggle.querySelector('.hx\\:icon-minus');
+
+        // Toggle state
+        accordion.classList.toggle('hx:open');
+        toggle.setAttribute('aria-expanded', !isExpanded);
+
+        // Toggle icons
+        if (iconPlus && iconMinus) {
+          iconPlus.classList.toggle('hx:hidden', !isExpanded);
+          iconMinus.classList.toggle('hx:hidden', isExpanded);
+        }
+
+        if (!isExpanded) {
+          // Expand: from 0 to auto
+          content.style.height = '0';
+          content.classList.remove('hx:hidden'); // ensure it's visible to measure
+          const height = content.scrollHeight;
+          content.style.height = `${height}px`;
+          setTimeout(() => {
+            content.style.height = 'auto';
+          }, 300); // match duration
+        } else {
+          // Collapse: from current to 0
+          content.style.height = `${content.scrollHeight}px`;
+          requestAnimationFrame(() => {
+            content.style.height = '0';
+          });
+          setTimeout(() => {
+            content.classList.add('hx:hidden');
+          }, 300);
+        }
+      });
+    });
+
+    const selectables = document.querySelectorAll('.hx\\:selectable');
+    selectables.forEach(selectable => {
+      selectable.addEventListener('click', e => {
+        if (e.target.closest('.hx\\:toggle')) return;
+        selectables.forEach(el => {
+          el.classList.remove('hx:selected', 'hx:bg-gray-100', 'hx:bg-neutral-700');
+        });
+        selectable.classList.add('hx:selected', isDarkMode() ? 'hx:bg-neutral-700' : 'hx:bg-gray-100');
+      });
+    });
+
+    // Update background if theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      selectables.forEach(el => {
+        if (el.classList.contains('hx:selected')) {
+          el.classList.remove('hx:bg-gray-100', 'hx:bg-neutral-700');
+          el.classList.add(isDarkMode() ? 'hx:bg-neutral-700' : 'hx:bg-gray-100');
+        }
+      });
+    });
+  });
+</script>
+{{ else }}
+{{/* <p class="hx:text-red-600">Error: filetree.yml not found in the same directory as _index.md</p> */}}
+{{ end }}

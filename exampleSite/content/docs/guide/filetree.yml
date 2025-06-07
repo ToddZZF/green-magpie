@@ -1,0 +1,26 @@
+repo: https://github.com/SCUTEEE/test-course/tree/resources
+tree:
+  - folder: notes
+    children:
+      - file: README.md
+        url: https://github.com/SCUTEEE/test-course/blob/resources/notes/README.md
+        size: 151.0 B
+        modified: '2025-06-07'
+  - folder: slides
+    children:
+      - file: README.md
+        url: https://github.com/SCUTEEE/test-course/blob/resources/slides/README.md
+        size: 194.0 B
+        modified: '2025-06-07'
+      - file: test
+        url: https://github.com/SCUTEEE/test-course/blob/resources/slides/test
+        size: 0.0 B
+        modified: '2025-06-07'
+  - file: README.md
+    url: https://github.com/SCUTEEE/test-course/blob/resources/README.md
+    size: 235.0 B
+    modified: '2025-06-07'
+  - file: test
+    url: https://github.com/SCUTEEE/test-course/blob/resources/test
+    size: 4.0 B
+    modified: '2025-06-07'

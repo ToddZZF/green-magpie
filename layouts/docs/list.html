@@ -8,6 +8,10 @@
         <div class="content">
           {{ if .Title }}<h1>{{ .Title }}</h1>{{ end }}
           {{ .Content }}
+          
+          {{ partial "components/readme.html" . }}
+
+          {{ partial "filetree/filetree.html" . }}
         </div>
         {{ partial "components/last-updated.html" . }}
         {{ partial "components/pager.html" . }}

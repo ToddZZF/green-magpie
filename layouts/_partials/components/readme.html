@@ -1,0 +1,8 @@
+{{ $sectionPath := path.Dir .File.Path }}
+{{ $readmePath := printf "%s/README.md" $sectionPath }}
+
+{{ with readFile $readmePath }}
+{{ $content := .}}
+{{ $cleaned := replaceRE `\n#+\s*[^\n]*\n*(?:\s*\n)*` "\n" $content 1 }}
+{{ $cleaned | markdownify }}
+{{ end }}

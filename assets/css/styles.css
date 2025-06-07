@@ -35,13 +35,13 @@ body {
 :root {
   --primary-hue: 40deg;
   --primary-saturation: 100%;
-  --primary-lightness: 50%;
+  --primary-lightness: 60%;
   --navbar-height: 3.5rem;
   --menu-height: 3.75rem;
 }
 
 .dark {
-  --primary-hue: 204deg;
+  --primary-hue: 40deg;
   --primary-saturation: 100%;
   --primary-lightness: 50%;
 }

@@ -1,0 +1,58 @@
+{{/*
+  Recursive partial to render a node (folder or file) in the file tree.
+  Supports explicit array format with "file" / "folder" / "children".
+  Parameters:
+  - node: list of file/folder items (array from .tree or .children)
+  - prefix: string used to build unique IDs
+  - context: page context
+*/}}
+
+{{ range $index, $entry := .node }}
+  {{- if $entry.folder }}
+    {{/* Folder Item */}}
+    <div class="hx:accordion" role="treeitem" aria-expanded="false" id="hx-tree-{{ $.prefix }}{{ $entry.folder | anchorize }}">
+      <div class="hx:py-0.5 hx:flex hx:items-center hx:gap-x-0.5 hx:w-full">
+        <button class="hx:toggle hx:size-6 hx:flex hx:justify-center hx:items-center hx:hover:bg-gray-100 hx:rounded-md hx:focus:outline-none hx:focus:bg-gray-100 hx:disabled:opacity-50 hx:disabled:pointer-events-none hx:dark:hover:bg-neutral-700 hx:dark:focus:bg-neutral-700" aria-expanded="false" aria-controls="hx-tree-collapse-{{ $.prefix }}{{ $entry.folder | anchorize }}" aria-label="Toggle {{ $entry.folder }} folder">
+          <svg class="hx:size-4 hx:text-gray-800 hx:dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path>
+            <path class="hx:open:hidden hx:block" d="M12 5v14"></path>
+          </svg>
+        </button>
+        <div class="hx:grow hx:selectable hx:px-1.5 hx:rounded-md hx:cursor-pointer">
+          <div class="hx:flex hx:items-center hx:gap-x-3">
+            <svg class="hx:shrink-0 hx:size-4 hx:text-gray-500 hx:dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" />
+            </svg>
+            <div class="hx:grow">
+              <span class="hx:text-sm hx:text-gray-800 hx:dark:text-neutral-200">{{ $entry.folder }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="hx-tree-collapse-{{ $.prefix }}{{ $entry.folder | anchorize }}" class="hx:content hx:w-full hx:overflow-hidden hx:transition-[height] hx:duration-300 hx:hidden" role="group" aria-labelledby="hx-tree-{{ $.prefix }}{{ $entry.folder | anchorize }}">
+        <div class="hx:ms-3 hx:ps-3 hx:relative hx:before:absolute hx:before:top-0 hx:before:start-0 hx:before:w-0.5 hx:before:-ms-px hx:before:h-full hx:before:bg-gray-100 hx:dark:before:bg-neutral-700">
+          {{ partial "filetree/filetree-node.html" (dict "node" $entry.children "prefix" (print $.prefix $entry.folder "-") "context" $.context) }}
+        </div>
+      </div>
+    </div>
+
+  {{- else if $entry.file }}
+    {{/* File Item */}}
+    <div class="hx:selectable hx:px-2 hx:rounded-md hx:cursor-pointer hx:hover:bg-gray-100 hx:dark:hover:bg-neutral-700" role="treeitem">
+      <div class="hx:flex hx:items-center hx:gap-x-3 hx:py-0.5">
+        <svg class="hx:shrink-0 hx:size-4 hx:text-gray-500 hx:dark:text-neutral-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+          <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+        </svg>
+        <div class="hx:grow hx:flex hx:justify-between hx:items-center">
+          <a href="{{ $entry.url }}" class="hx:text-sm hx:text-gray-800 hx:dark:text-neutral-200 hx:hover:underline" target="_blank" rel="noopener noreferrer">
+            {{ $entry.file }}
+          </a>
+          <span class="hx:text-xs hx:text-gray-500 hx:dark:text-neutral-500 whitespace-nowrap ms-2">
+            {{ $entry.size }} | {{ $entry.modified }}
+          </span>
+        </div>
+      </div>
+    </div>
+  {{- end }}
+{{- end }}
