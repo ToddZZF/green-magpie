@@ -1,0 +1,12 @@
+{{- $ctx := . -}}
+{{- $result := "" -}}
+
+{{- if $ctx.Params.github -}}
+  {{- $result = $ctx -}}
+{{- else -}}
+  {{ if $ctx.Parent }}
+    {{- $result = partial "utils/find-github.html" $ctx.Parent -}}
+  {{ end }}
+{{- end -}}
+
+{{ return $result }}

@@ -38,6 +38,24 @@
               {{- $editURL = urls.JoinPath $editURL $sourceDir $path -}}
             {{- end -}}
           {{- end -}}
+
+          {{/* Edit URL for hugo modules  */}}
+          {{ if in .File.Filename "module" }}
+            {{- $section := partial "utils/find-github.html" .CurrentSection -}}
+            {{ if $section }}
+              {{/* Get the GitHub repository URL from the section params and remove any trailing slash */}}
+              {{- $github :=  strings.TrimSuffix "/" $section.Params.github -}} 
+              {{- $filepath := replace .File.Path "\\" "/" -}}
+              {{- $sectionPath := replace $section.File.Path "\\" "/" | path.Dir -}}
+
+              {{/* Remove the section path prefix from the current file path to get the relative path */}}
+              {{- $relPath := strings.TrimPrefix (printf "%s/" $sectionPath) $filepath -}}
+
+              {{/* Construct the final GitHub edit URL, assuming the branch is 'main' */}}
+              {{- $editURL = printf "%s/blob/main/%s" $github $relPath -}}
+            {{ end }}
+          {{ end }}
+          
           <a class="hx:text-xs hx:font-medium hx:text-gray-500 hx:hover:text-gray-900 hx:dark:text-gray-400 hx:dark:hover:text-gray-100 hx:contrast-more:text-gray-800 hx:contrast-more:dark:text-gray-50" href="{{ $editURL }}" target="_blank" rel="noreferrer">{{ $editThisPage }}</a>
         {{- end -}}
         {{/* Scroll To Top */}}
