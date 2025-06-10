@@ -14,8 +14,13 @@
       <div class="hx:py-0.5 hx:flex hx:items-center hx:gap-x-0.5 hx:w-full">
         <button class="hx:toggle hx:size-6 hx:flex hx:justify-center hx:items-center hx:hover:bg-gray-100 hx:rounded-md hx:focus:outline-none hx:focus:bg-gray-100 hx:disabled:opacity-50 hx:disabled:pointer-events-none hx:dark:hover:bg-neutral-700 hx:dark:focus:bg-neutral-700" aria-expanded="false" aria-controls="hx-tree-collapse-{{ $.prefix }}{{ $entry.folder | anchorize }}" aria-label="Toggle {{ $entry.folder }} folder">
           <svg class="hx:size-4 hx:text-gray-800 hx:dark:text-neutral-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14"></path>
-            <path class="hx:open:hidden hx:block" d="M12 5v14"></path>
+            <g class="hx:icon-minus">
+              <path d="M5 12h14"></path>
+            </g>
+            <g class="hx:icon-plus">
+              <path d="M5 12h14"></path>
+              <path d="M12 5v14"></path>
+            </g>
           </svg>
         </button>
         <div class="hx:grow hx:selectable hx:px-1.5 hx:rounded-md hx:cursor-pointer">
